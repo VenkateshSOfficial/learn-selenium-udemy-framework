@@ -14,14 +14,10 @@ public class E2EOrderTest extends BaseTest{
 	CartPage cartPage;
 
 
-	@Test
-	public void login() {
+	@Test(priority=2,groups={"smoke"})
+	public void validateE2E() {
 		login=new LoginPage(driver);
 		login.loginToApplication("venkatesh230691@gmail.com", "CENA@wwe2014");
-	}
-
-	@Test(dependsOnMethods = { "login" })
-	public void validateE2E() {
 		productPage=new ProductCatalogPage(driver);
 		cartPage=new CartPage(driver);
 		

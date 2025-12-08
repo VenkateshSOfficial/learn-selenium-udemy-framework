@@ -29,6 +29,9 @@ public class ProductCatalogPage extends AbstractComponents{
 	@FindBy(xpath="//button[@routerlink='/dashboard/cart']")
 	WebElement cartButton;
 	
+	@FindBy(css=".fa.fa-sign-out")
+	WebElement signoutButton;
+	
 	public WebElement getProductByName(String productName) {
 		   WebElement product = items.stream()
 				.filter(item -> item.findElement(By.xpath("./h5/b")).getText().equalsIgnoreCase(productName))
@@ -50,4 +53,10 @@ public class ProductCatalogPage extends AbstractComponents{
 		cartButton.click();
 		return new CartPage(driver);
 	}
+	
+	public void validateLoginSuccess() {
+		explicitlyWait(signoutButton);
+		Assert.assertTrue(signoutButton.isDisplayed());
+	}
+	
 }
