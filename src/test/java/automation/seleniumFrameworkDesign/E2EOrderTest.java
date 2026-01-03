@@ -1,10 +1,13 @@
 package automation.seleniumFrameworkDesign;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import abstractComponents.AbstractComponents;
 import seleniumFrameworkDesign.pages.CartPage;
 import seleniumFrameworkDesign.pages.LoginPage;
 import seleniumFrameworkDesign.pages.ProductCatalogPage;
@@ -20,7 +23,7 @@ public class E2EOrderTest extends BaseTest{
 	@Test(priority=2,groups={"smoke"},dataProvider = "data")
 	public void validateE2E(HashMap<String,String> input/* String email,String password,String product */) {
 		login=new LoginPage(driver);
-		login.loginToApplication(input.get("email"), input.get("pwd"));
+		login.loginToApplication(input.get("email"), input.get("password"));
 		productPage=new ProductCatalogPage(driver);
 		cartPage=new CartPage(driver);
 		
@@ -35,16 +38,19 @@ public class E2EOrderTest extends BaseTest{
 	}
 	
 	@DataProvider
-	public Object[][] data() {
-		HashMap<String,String> map=new HashMap<>();
-		map.put("email","venkatesh230691@gmail.com" );
-		map.put("pwd", "CENA@wwe2014");
-		map.put("product", "ADIDAS ORIGINAL");
+	public Object[][] data() throws IOException {
+		List<HashMap<String,String>> data=AbstractComponents.readJsonFile(
+				System.getProperty("user.dir") + "\\src\\main\\java\\resources\\data.json");
 		
-		HashMap<String,String> map1=new HashMap<>();
-		map1.put("email","venkatesh240691@gmail.com" );
-		map1.put("pwd", "Esambalam@2025");
-		map1.put("product", "ZARA COAT 3");
+		/*
+		 * HashMap<String,String> map=new HashMap<>();
+		 * map.put("email","venkatesh230691@gmail.com" ); map.put("pwd",
+		 * "CENA@wwe2014"); map.put("product", "ADIDAS ORIGINAL");
+		 * 
+		 * HashMap<String,String> map1=new HashMap<>();
+		 * map1.put("email","venkatesh240691@gmail.com" ); map1.put("pwd",
+		 * "Esambalam@2025"); map1.put("product", "ZARA COAT 3");
+		 */
 		
 		/*
 		 * return new Object[][] {
@@ -52,9 +58,8 @@ public class E2EOrderTest extends BaseTest{
 		 * {"venkatesh240691@gmail.com","Esambalam@2025","ZARA COAT 3"} };
 		 */
 		
-		return new Object[][] {
-			{map},
-			{map1}
-		};
+		
+		 return new Object[][] { {data.get(0)}, {data.get(1)} };
+		 
 	}
 }

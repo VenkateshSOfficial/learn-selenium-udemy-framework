@@ -1,21 +1,23 @@
 package abstractComponents;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 
 public class AbstractComponents {
 	WebDriver driver;
@@ -48,4 +50,15 @@ public class AbstractComponents {
 
 		return properties.getProperty(key);
 	}
+	
+	public static List<HashMap<String, String>> readJsonFile(String filePath) throws IOException {
+		String jsonContent = FileUtils.readFileToString(
+				new File(filePath),
+				StandardCharsets.UTF_8);
+		ObjectMapper mapper = new ObjectMapper();
+		List<HashMap<String,String>> data=mapper.readValue(jsonContent, new TypeReference<List<HashMap<String,String>>>()
+				{});
+		return data;
+	}
+
 }
