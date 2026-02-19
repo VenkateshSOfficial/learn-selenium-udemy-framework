@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -51,14 +53,19 @@ public class AbstractComponents {
 		return properties.getProperty(key);
 	}
 	
-	public static List<HashMap<String, String>> readJsonFile(String filePath) throws IOException {
+	public static List<HashMap<String, String>> readJsonFile() throws IOException {
 		String jsonContent = FileUtils.readFileToString(
-				new File(filePath),
+				new File(System.getProperty("user.dir")+"\\src\\main\\java\\resources\\data.json"),
 				StandardCharsets.UTF_8);
-		ObjectMapper mapper = new ObjectMapper();
-		List<HashMap<String,String>> data=mapper.readValue(jsonContent, new TypeReference<List<HashMap<String,String>>>()
-				{});
-		return data;
+        return new ObjectMapper().readValue(jsonContent, new TypeReference<List<HashMap<String,String>>>()
+                {});
 	}
 
+	public String screenshot(String testCaseName) throws IOException {
+		TakesScreenshot ts=(TakesScreenshot) driver;
+		File source = ts.getScreenshotAs(OutputType.FILE);
+		File destination=new File(System.getProperty("user.dir") + "//reports//" + testCaseName + ".png");
+		FileUtils.copyFile(source,destination);
+		return System.getProperty("user.dir") + "//reports//" + testCaseName + ".png";
+	}
 }

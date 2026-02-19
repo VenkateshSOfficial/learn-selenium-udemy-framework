@@ -20,7 +20,7 @@ public class ProductCatalogPage extends AbstractComponents{
 		PageFactory.initElements(driver, this);
 	}
 	
-	@FindBy(xpath="//*[@class='card-body']")
+	@FindBy(xpath="//*[@class='card-body']/h5/b")
 	List<WebElement> items;
 	
 	@FindBy(css="#toast-container")
@@ -28,21 +28,19 @@ public class ProductCatalogPage extends AbstractComponents{
 	
 	@FindBy(xpath="//button[@routerlink='/dashboard/cart']")
 	WebElement cartButton;
-	
+
+	@FindBy(xpath = "//*[@class='card-body']/button[2]")
+	List<WebElement> productsCartButton;
+
 	@FindBy(css=".fa.fa-sign-out")
 	WebElement signoutButton;
 	
-	public WebElement getProductByName(String productName) {
-		   WebElement product = items.stream()
-				.filter(item -> item.findElement(By.xpath("./h5/b")).getText().equalsIgnoreCase(productName))
-				.findFirst().orElse(null);
-		   return product;
-
-	}
-	
 	public ProductCatalogPage addProductToCart(String productName) {
-		WebElement prod = getProductByName(productName);
-		prod.findElement(By.xpath("//*[@class='card-body']/button[2]")).click();
+		for(int i=0;i<items.size();i++){
+			if(items.get(i).getText().toLowerCase().equalsIgnoreCase(productName)){
+				productsCartButton.get(i).click();
+			}
+		}
 		explicitlyWait(toast);
 		Assert.assertTrue(toast.isDisplayed());
 		explicitlyWaitForInvisibilityOfElement(toast);
