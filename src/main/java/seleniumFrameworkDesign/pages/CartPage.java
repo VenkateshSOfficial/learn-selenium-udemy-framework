@@ -37,6 +37,7 @@ public class CartPage extends AbstractComponents{
 	WebElement orderSuccessConfirmationMessage;
 	
 	public void clickCheckoutButton() {
+		explicitlyWait(checkoutButton);
 		checkoutButton.click();
 	}
 	

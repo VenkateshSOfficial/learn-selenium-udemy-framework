@@ -30,7 +30,7 @@ public class ValidateLoginTest extends BaseTest{
 	public Object[][] data() {
 		return new Object[][] {
 			{"venkatesh230691@gmail.com","CENA@wwe2014"},
-		    {"venkatesh240691@gmail.com","Esambalam@2025"}
+				{"venkatesh240691@gmail.com","Godisgreat@2026"}
 		};
 	}
 }

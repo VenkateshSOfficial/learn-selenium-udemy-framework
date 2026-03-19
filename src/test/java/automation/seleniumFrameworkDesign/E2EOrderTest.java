@@ -68,7 +68,7 @@ public class E2EOrderTest extends BaseTest{
 	public Object[][] getData(){
 		return new Object[][] {
 				{"venkatesh230691@gmail.com","CENA@wwe2014","ZARA COAT 3"},
-				{"venkatesh240691@gmail.com","CENA@wwe2014","ADIDAS ORIGINAL"}
+				{"venkatesh240691@gmail.com","Godisgreat@2026","ADIDAS ORIGINAL"}
 		};
 	}
 
@@ -81,7 +81,7 @@ public class E2EOrderTest extends BaseTest{
 
 		HashMap<Object,Object>product2=new HashMap<>();
 		product2.put("email","venkatesh240691@gmail.com");
-		product2.put("password","CENA@wwe2014");
+		product2.put("password","Godisgreat@2026");
 		product2.put("product","ADIDAS ORIGINAL");
 
 		return new Object[][]{

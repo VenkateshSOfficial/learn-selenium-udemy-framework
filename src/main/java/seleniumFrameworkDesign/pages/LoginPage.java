@@ -46,5 +46,4 @@ public class LoginPage extends AbstractComponents{
 		errorMsg = errorToastMessage.getText();
 		Assert.assertEquals(errorMsg, "Incorrect email or password.");
 	}
-
 }

@@ -29,7 +29,8 @@ public class BaseTest {
 	
 	public WebDriver initializeDriver() throws IOException {
 
-		switch (AbstractComponents.fetchDataFromProperties("browser")) {
+		String browserName=System.getProperty("browser")!=null ? System.getProperty("browser"):AbstractComponents.fetchDataFromProperties("browser");
+		switch (browserName.toLowerCase()) {
 		case "chrome":
 			options = new ChromeOptions();
 			options.addArguments("guest");
